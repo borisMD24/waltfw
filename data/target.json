@@ -1,0 +1,7 @@
+{
+    "UID" : "target",
+    "type" : "ledstrip",
+    "ledCount" :16,
+    "pin" : 5,
+    "ledType" : "NEO_GRB + NEO_KHZ800"
+}

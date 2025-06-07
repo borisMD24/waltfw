@@ -1,0 +1,45 @@
+{
+    "loop": true,
+    "gradient": {
+        "stops": [
+            {
+                "position": 0,
+                "color": {
+                    "r": 0,
+                    "g": 255,
+                    "b": 0
+                }
+            },
+            {
+                "position": 1,
+                "color": "blue"
+            }
+        ],
+        "smooth": true,
+        "duration": 1000
+    },
+    "then": [
+    {
+      "gradient": {
+        "colors": ["#FF0000", "#0000FF"],
+        "duration": 3000,
+        "blend": true
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 500
+      }
+    },
+    {
+      "gradient": {
+        "colors": ["#0000FF", "#00FF00"],
+        "duration": 3000,
+        "blend": true
+      },
+      "transition": {
+        "type": "fade",
+        "duration": 500
+      }
+    }
+  ]
+}

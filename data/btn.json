@@ -1,0 +1,8 @@
+{
+    "UID" : "btn",
+    "type" : "btn",
+    "pin" : 14,
+    "onchange":[
+        "ws"
+    ]
+}

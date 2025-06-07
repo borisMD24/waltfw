@@ -1,0 +1,12 @@
+{
+    "name": "wsetup",
+    "ioIndex":[
+        {
+            "UID": "btn"
+        },
+        {
+            "UID": "target"
+
+        }
+    ]
+}
