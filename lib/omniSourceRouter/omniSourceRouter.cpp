@@ -2,7 +2,7 @@
 #include <algorithm> // Pour std::remove et std::erase
 #include <ArduinoJson.h>
 #include <functional>
-
+#include <PrefManager.h>
 #include <vector>
 #include <networkManager.h>
 
@@ -20,12 +20,19 @@ OmniSourceRouter::OmniSourceRouter(NetworkManager *nm)
 
     // Initialize WebSocket client (if still needed for outgoing connections)
     // Setup HTTP server routes and WebSocket server
+    this->begin();
 }
 
 void OmniSourceRouter::begin(){
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
+    Serial.println("yyyyyyyyyyyyyyyyyyy");
     this->setupHttpRoutes();
     this->setupWebSocketServer();
-    nm->webSocket.begin("192.168.1.18", 3000, "/cable");
+    nm->webSocket.begin("192.168.1.88", 3000, "/");
     nm->webSocket.onEvent(OmniSourceRouter::webSocketEventStatic);
     nm->webSocket.setReconnectInterval(5000);
  
@@ -192,9 +199,18 @@ void OmniSourceRouter::webSocketEvent(WStype_t type, uint8_t *payload, size_t le
     case WStype_DISCONNECTED:
         break;
     case WStype_CONNECTED:
+    {
         Serial.printf("WebSocket Client Connected to: %s\n", payload);
-        nm->webSocket.sendTXT("{\"action\":\"join\", \"room\":\"leds\"}");
+        PrefManager pm;
+        DynamicJsonDocument config = pm.read("config.json");
+        String room = "orphan";
+        if(config.containsKey("room")){
+            room = config["room"].as<String>();
+            Serial.println("setFromFlash");
+        }
+        nm->webSocket.sendTXT("{\"action\":\"join\", \"room\":\""+room+"\"}");
         break;
+    }
     case WStype_TEXT:
     {
         String message = String((char *)payload);
